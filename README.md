@@ -17,14 +17,37 @@ This class can be used to perform actions on a DynamoDB table.
 
 All parameters are strings. Access keys can be generated with IAM.
 
-### BatchGetItem(params, cb)
+Parameter       |       Type     | Description
+---------------------- | -------------- | -----------
+**region** | string        | AWS region
+**accessKeyId**  | string	      | AWS access key id
+**secretAccessKey** | string      | AWS secret access key id
 
+### Example
+
+```squirrel
+#require "AWSRequestV4.class.nut:1.0.2"
+#require "AWSDynamoDB.class.nut:1.0.0"
+
+const ACCESS_KEY_ID = "YOUR_KEY_ID_HERE";
+const SECRET_ACCESS_KEY = "YOUR_KEY_HERE";
+
+db <- AWSDynamoDB("us-west-2", ACCESS_KEY_ID, SECRET_ACCESS_KEY);
+```
+### BatchGetItem(params, cb)
+The BatchGetItem operation returns the attributes of one or more items from one or more tables. You identify requested items by primary key.
 http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html
 
  Parameter       |       Type     | Description
 ---------------------- | -------------- | -----------
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
+
+
+### Example
+
+```squirrel
+```
 
 ### BatchWriteItem(params, cb)
 
@@ -35,6 +58,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
+### Example
+
+```squirrel
+```
+
 ### CreateTable(params, cb)
 
 http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
@@ -43,6 +71,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.ht
 ---------------------- | -------------- | -----------
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
+
+### Example
+
+```squirrel
+```
 
 ### DeleteItem(params, cb)
 
@@ -53,6 +86,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.htm
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
+### Example
+
+```squirrel
+```
+
 ### DeleteTable(params, cb)
 
 http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html
@@ -61,6 +99,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.ht
 ---------------------- | -------------- | -----------
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
+
+### Example
+
+```squirrel
+```
 
 ### DescribeLimits(params, cb)
 
@@ -71,6 +114,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
+### Example
+
+```squirrel
+```
+
 ### DescribeTable(params, cb)
 
 http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html
@@ -79,6 +127,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.
 ---------------------- | -------------- | -----------
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
+
+### Example
+
+```squirrel
+```
 
 ### GetItem(params, cb)
 
@@ -89,6 +142,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
+### Example
+
+```squirrel
+```
+
 ### ListTables(params, cb)
 
 http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html
@@ -97,6 +155,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.htm
 ---------------------- | -------------- | -----------
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
+
+### Example
+
+```squirrel
+```
 
 ### PutItem(params, cb)
 
@@ -107,6 +170,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
+### Example
+
+```squirrel
+```
+
 ### Query(params, cb)
 
 http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html
@@ -115,6 +183,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html
 ---------------------- | -------------- | -----------
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
+
+### Example
+
+```squirrel
+```
 
 ### Scan(params, cb)
 
@@ -125,6 +198,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
+### Example
+
+```squirrel
+```
+
 ### UpdateItem(params, cb)
 
 http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html
@@ -133,6 +211,11 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.htm
 ---------------------- | -------------- | -----------
 **params** | table         | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
+
+### Example
+
+```squirrel
+```
 
 ### UpdateTable(params, cb)
 
