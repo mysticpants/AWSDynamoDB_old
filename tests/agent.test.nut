@@ -23,10 +23,6 @@ const AWS_ERROR_LIMIT_100 = "1 validation error detected: Value '200' at 'limit'
 
 // info messages
 const AWS_TEST_WAITING_FOR_TABLE = "Table not created yet. Waiting 5 seconds before starting tests..."
-    // resolve messages
-
-// reject messages
-
 
 class DynamoDBTest extends ImpTestCase {
     db = null;
