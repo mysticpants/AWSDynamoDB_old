@@ -23,8 +23,8 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 class AWSDynamoDB {
-    static version = "1.0.0";
 
+    static VERSION = "1.0.0";
     static SERVICE = "dynamodb";
     static TARGET_PREFIX = "DynamoDB_20120810";
 
