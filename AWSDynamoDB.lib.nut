@@ -1,6 +1,6 @@
 // MIT License
 //
-// Copyright 2017 Mystic Pants Pty Ltd
+// Copyright 2017 Electric Imp
 //
 // SPDX-License-Identifier: MIT
 //
@@ -53,8 +53,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
     ////////////////////////////////////////////////////////////////////////////
     function BatchWriteItem(params, cb) {
         local headers = { "X-Amz-Target": format("%s.BatchWriteItem", TARGET_PREFIX) };
@@ -62,8 +62,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
     ////////////////////////////////////////////////////////////////////////////
     function CreateTable(params, cb) {
         local headers = { "X-Amz-Target": format("%s.CreateTable", TARGET_PREFIX) };
@@ -71,8 +71,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
     ////////////////////////////////////////////////////////////////////////////
     function DeleteItem(params, cb) {
         local headers = { "X-Amz-Target": format("%s.DeleteItem", TARGET_PREFIX) };
@@ -80,8 +80,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
     ////////////////////////////////////////////////////////////////////////////
     function DeleteTable(params, cb) {
         local headers = { "X-Amz-Target": format("%s.DeleteTable", TARGET_PREFIX) };
@@ -89,8 +89,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
     ////////////////////////////////////////////////////////////////////////////
     function DescribeLimits(params, cb) {
         local headers = { "X-Amz-Target": format("%s.DescribeLimits", TARGET_PREFIX) };
@@ -98,8 +98,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
     ////////////////////////////////////////////////////////////////////////////
     function DescribeTable(params, cb) {
         local headers = { "X-Amz-Target": format("%s.DescribeTable", TARGET_PREFIX) };
@@ -107,8 +107,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
     ////////////////////////////////////////////////////////////////////////////
     function GetItem(params, cb) {
         local headers = { "X-Amz-Target": format("%s.GetItem", TARGET_PREFIX) };
@@ -116,8 +116,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
     ////////////////////////////////////////////////////////////////////////////
     function ListTables(params, cb) {
         local headers = { "X-Amz-Target": format("%s.ListTables", TARGET_PREFIX) };
@@ -125,8 +125,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
      ////////////////////////////////////////////////////////////////////////////
     function PutItem(params, cb) {
         local headers = { "X-Amz-Target": format("%s.PutItem", TARGET_PREFIX) };
@@ -134,8 +134,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
      ////////////////////////////////////////////////////////////////////////////
     function Query(params, cb) {
         local headers = { "X-Amz-Target": format("%s.Query", TARGET_PREFIX) };
@@ -143,8 +143,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
      ////////////////////////////////////////////////////////////////////////////
     function Scan(params, cb) {
         local headers = { "X-Amz-Target": format("%s.Scan", TARGET_PREFIX) };
@@ -152,8 +152,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
      ////////////////////////////////////////////////////////////////////////////
     function UpdateItem(params, cb) {
         local headers = { "X-Amz-Target": format("%s.UpdateItem", TARGET_PREFIX) };
@@ -161,8 +161,8 @@ class AWSDynamoDB {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-     // @param {table} params
-     // @param {function} cb
+    // @param {table} params
+    // @param {function} cb
      ////////////////////////////////////////////////////////////////////////////
     function UpdateTable(params, cb) {
         local headers = { "X-Amz-Target": format("%s.UpdateTable", TARGET_PREFIX) };
