@@ -23,7 +23,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 #require "AWSRequestV4.class.nut:1.0.2"
-#require "AWSDynamoDB.class.nut:1.0.0"
+#require "AWSDynamoDB.lib.nut:1.0.0"
 
 
 // Enter Your AWS details here

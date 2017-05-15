@@ -4,7 +4,7 @@ To add this library to your model, add the following lines to the top of your ag
 
 ```
 #require "AWSRequestV4.class.nut:1.0.2"
-#require "AWSDynamoDB.class.nut:1.0.0"
+#require "AWSDynamoDB.lib.nut:1.0.0"
 ```
 
 **Note: [AWSRequestV4](https://github.com/electricimp/AWSRequestV4/) must be loaded.**
@@ -27,7 +27,7 @@ Parameter    		   |       Type     | Description
 
 ```squirrel
 #require "AWSRequestV4.class.nut:1.0.2"
-#require "AWSDynamoDB.class.nut:1.0.0"
+#require "AWSDynamoDB.lib.nut:1.0.0"
 
 const AWS_DYNAMO_ACCESS_KEY_ID = "YOUR_KEY_ID_HERE";
 const AWS_DYNAMO_SECRET_ACCESS_KEY = "YOUR_KEY_HERE";

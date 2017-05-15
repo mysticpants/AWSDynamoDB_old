@@ -49,15 +49,15 @@ const AWS_ERROR_LIMIT_100 = "1 validation error detected: Value '200' at 'limit'
 const AWS_TEST_WAITING_FOR_TABLE = "Table not created yet. Waiting 5 seconds before starting tests..."
 
 class DynamoDBTest extends ImpTestCase {
-    db = null;
+
+    _db = null;
     _tablename = null;
     _KeySchema = null;
     _AttributeDefinitions = null;
     _ProvisionedThroughput = null;
 
 
-
-    // instantiates the class (AWSDynamoDB) as db
+    // instantiates the class (AWSDynamoDB) as _db
     // Creates a table named testTable.randNum
     function setUp() {
         // Parameters to set up categories for a table
@@ -83,7 +83,7 @@ class DynamoDBTest extends ImpTestCase {
         return Promise(function(resolve, reject) {
 
             // class initialisation
-            db = AWSDynamoDB(AWS_DYNAMO_REGION, AWS_DYNAMO_ACCESS_KEY_ID, AWS_DYNAMO_SECRET_ACCESS_KEY);
+            _db = AWSDynamoDB(AWS_DYNAMO_REGION, AWS_DYNAMO_ACCESS_KEY_ID, AWS_DYNAMO_SECRET_ACCESS_KEY);
 
             local randNum = (1.0 * math.rand() / RAND_MAX) * (1000 + 1);
             _tablename = "testTable." + randNum;
@@ -93,16 +93,18 @@ class DynamoDBTest extends ImpTestCase {
                 "ProvisionedThroughput": _ProvisionedThroughput,
                 "TableName": _tablename
             };
+
             // Create a table with random name per test testTable.randNum
-            db.CreateTable(params, function(res) {
+            _db.CreateTable(params, function(res) {
 
                 // check status code indication successful creation
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                     local describeParams = {
                         "TableName": _tablename
                     };
+
                     // wait for the table to finish being created
-                    // important as toomany request to awd db will cause errors
+                    // important as toomany request to awd _db will cause errors
                     checkTable(describeParams, function(result) {
 
                         if (typeof result == "bool" && result == true) {
@@ -124,7 +126,7 @@ class DynamoDBTest extends ImpTestCase {
     // waits until table is active e.g finished creating then calls cb
     function checkTable(params, cb) {
 
-        db.DescribeTable(params, function(res) {
+        _db.DescribeTable(params, function(res) {
 
             if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                 if (http.jsondecode(res.body).Table.TableStatus == "ACTIVE") {
@@ -164,7 +166,7 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.PutItem(params, function(res) {
+            _db.PutItem(params, function(res) {
 
                 try {
                     this.assertTrue(res.statuscode == AWS_TEST_HTTP_RESPONSE_BAD_REQUEST, "Actual status: " + res.statuscode);
@@ -199,7 +201,7 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.GetItem(getParams, function(res) {
+            _db.GetItem(getParams, function(res) {
 
                 try {
                     this.assertTrue(res.statuscode == AWS_TEST_HTTP_RESPONSE_BAD_REQUEST, "Actual status: " + res.statuscode);
@@ -251,10 +253,10 @@ class DynamoDBTest extends ImpTestCase {
 
         return Promise(function(resolve, reject) {
 
-            db.PutItem(putParams, function(res) {
+            _db.PutItem(putParams, function(res) {
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
 
-                    db.GetItem(getParams, function(res) {
+                    _db.GetItem(getParams, function(res) {
                         if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                             try {
                                 this.assertTrue(itemTime == http.jsondecode(res.body).Item.time.S, "retrieved time: " + http.jsondecode(res.body).Item.time.S + "sent time: " + itemTime);
@@ -283,6 +285,7 @@ class DynamoDBTest extends ImpTestCase {
     function testUpdateItem() {
 
         local itemTime = time().tostring();
+
         local putParams = {
             "TableName": _tablename,
             "Item": {
@@ -297,6 +300,7 @@ class DynamoDBTest extends ImpTestCase {
                 }
             }
         };
+
         local updateParams = {
             "Key": {
                 "deviceId": {
@@ -313,11 +317,12 @@ class DynamoDBTest extends ImpTestCase {
             },
             "ReturnValues": "UPDATED_NEW"
         };
+        
         return Promise(function(resolve, reject) {
 
-            db.PutItem(putParams, function(res) {
+            _db.PutItem(putParams, function(res) {
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
-                    db.UpdateItem(updateParams, function(res) {
+                    _db.UpdateItem(updateParams, function(res) {
 
                         if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                             try {
@@ -374,10 +379,10 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.PutItem(putParams, function(res) {
+            _db.PutItem(putParams, function(res) {
 
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
-                    db.DeleteItem(deleteParams, function(res) {
+                    _db.DeleteItem(deleteParams, function(res) {
 
                         try {
                             this.assertTrue(res.statuscode == AWS_TEST_HTTP_RESPONSE_SUCCESS, "Actual statuscode is " + res.statuscode);
@@ -428,15 +433,15 @@ class DynamoDBTest extends ImpTestCase {
 
         return Promise(function(resolve, reject) {
 
-            db.CreateTable(createParams, function(res) {
+            _db.CreateTable(createParams, function(res) {
 
                 checkTable({ "TableName": "testTable" }, function(res) {
 
-                    db.BatchWriteItem(writeParams, function(res) {
+                    _db.BatchWriteItem(writeParams, function(res) {
 
                         checkTableUpdated({ "TableName": "testTable" }, function(res) {
 
-                            db.Scan({ "TableName": "testTable" }, function(res) {
+                            _db.Scan({ "TableName": "testTable" }, function(res) {
 
                                 try {
                                     this.assertTrue(http.jsondecode(res.body).Items[0].batchNumber.N == "1", "Batch number incorrect")
@@ -522,16 +527,16 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.CreateTable(createParams, function(res) {
+            _db.CreateTable(createParams, function(res) {
 
                 checkTable({ "TableName": "testTable2" }, function(res) {
 
-                    db.BatchWriteItem(writeParams, function(res) {
+                    _db.BatchWriteItem(writeParams, function(res) {
 
                         checkTableUpdated({ "TableName": "testTable2" }, function(res) {
 
                             if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
-                                db.BatchGetItem(getParams, function(res) {
+                                _db.BatchGetItem(getParams, function(res) {
 
                                     if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                                         local check = http.jsondecode(res.body).Responses;
@@ -582,7 +587,7 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.CreateTable(params, function(res) {
+            _db.CreateTable(params, function(res) {
 
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                     try {
@@ -612,11 +617,11 @@ class DynamoDBTest extends ImpTestCase {
             "TableName": tableName
         };
 
-        db.DescribeTable(params, function(res) {
+        _db.DescribeTable(params, function(res) {
 
             if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                 if (http.jsondecode(res.body).Table.TableStatus == "ACTIVE") {
-                    db.DeleteTable(params, function(res) {
+                    _db.DeleteTable(params, function(res) {
 
                         if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                             this.info("Cleaned up after testCreateTable().");
@@ -646,7 +651,7 @@ class DynamoDBTest extends ImpTestCase {
 
         return Promise(function(resolve, reject) {
 
-            db.DescribeTable({ "TableName": _tablename }, function(res) {
+            _db.DescribeTable({ "TableName": _tablename }, function(res) {
 
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                     try {
@@ -676,7 +681,7 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.UpdateTable(params, function(res) {
+            _db.UpdateTable(params, function(res) {
 
                 try {
                     this.assertTrue(res.statuscode == AWS_TEST_HTTP_RESPONSE_BAD_REQUEST, res.statuscode)
@@ -704,7 +709,7 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.UpdateTable(params, function(res) {
+            _db.UpdateTable(params, function(res) {
 
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
 
@@ -736,7 +741,7 @@ class DynamoDBTest extends ImpTestCase {
     // updating its contained data
     function checkTableUpdated(params, cb) {
 
-        db.DescribeTable(params, function(res) {
+        _db.DescribeTable(params, function(res) {
 
             if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                 if (http.jsondecode(res.body).Table.TableStatus == "ACTIVE") {
@@ -792,7 +797,7 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.CreateTable(createParams, function(res) {
+            _db.CreateTable(createParams, function(res) {
 
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
 
@@ -824,7 +829,7 @@ class DynamoDBTest extends ImpTestCase {
     // To be called by the delete table test, determines when deletion is complete
     function checkTableDeleted(params, cb) {
 
-        db.DescribeTable(params, function(res) {
+        _db.DescribeTable(params, function(res) {
 
             if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                 if (http.jsondecode(res.body).Table.TableStatus == "DELETING") {
@@ -848,11 +853,11 @@ class DynamoDBTest extends ImpTestCase {
     // To be called by the testDeleteTable() testing method
     function describeAndDeleteTable(params, cb) {
 
-        db.DescribeTable(params, function(res) {
+        _db.DescribeTable(params, function(res) {
 
             if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                 if (http.jsondecode(res.body).Table.TableStatus == "ACTIVE") {
-                    db.DeleteTable(params, function(res) {
+                    _db.DeleteTable(params, function(res) {
 
                         if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                             cb(true);
@@ -883,7 +888,7 @@ class DynamoDBTest extends ImpTestCase {
 
         return Promise(function(resolve, reject) {
 
-            db.DescribeLimits({}, function(res) {
+            _db.DescribeLimits({}, function(res) {
 
                 try {
                     this.assertTrue(res.statuscode == AWS_TEST_HTTP_RESPONSE_SUCCESS, "statuscode: " + res.statuscode);
@@ -911,7 +916,7 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.ListTables(params, function(res) {
+            _db.ListTables(params, function(res) {
 
                 local arrayTableNames = http.jsondecode(res.body).TableNames;
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
@@ -943,7 +948,7 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.ListTables(params, function(res) {
+            _db.ListTables(params, function(res) {
 
                 try {
                     this.assertTrue(http.jsondecode(res.body).message == AWS_ERROR_LIMIT_100, http.jsondecode(res.body).message);
@@ -971,7 +976,7 @@ class DynamoDBTest extends ImpTestCase {
                     }
                 }
             };
-            db.Query(params, function(res) {
+            _db.Query(params, function(res) {
 
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                     try {
@@ -999,7 +1004,7 @@ class DynamoDBTest extends ImpTestCase {
         };
         return Promise(function(resolve, reject) {
 
-            db.Scan(params, function(res) {
+            _db.Scan(params, function(res) {
 
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                     try {
