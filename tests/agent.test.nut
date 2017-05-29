@@ -51,31 +51,31 @@ const AWS_TEST_WAITING_FOR_TABLE = "Table not created yet. Waiting 5 seconds bef
 class DynamoDBTest extends ImpTestCase {
 
     _db = null;
-    _tablename = null;
-    _KeySchema = null;
-    _AttributeDefinitions = null;
-    _ProvisionedThroughput = null;
+    _tableName = null;
+    _keySchema = null;
+    _attributeDefinitions = null;
+    _provisionedThroughput = null;
 
 
     // instantiates the class (AWSDynamoDB) as _db
     // Creates a table named testTable.randNum
     function setUp() {
         // Parameters to set up categories for a table
-        _KeySchema = [{
+        _keySchema = [{
             "AttributeName": "deviceId",
             "KeyType": "HASH"
         }, {
             "AttributeName": "time",
             "KeyType": "RANGE"
         }];
-        _AttributeDefinitions = [{
+        _attributeDefinitions = [{
             "AttributeName": "deviceId",
             "AttributeType": "S"
         }, {
             "AttributeName": "time",
             "AttributeType": "S"
         }];
-        _ProvisionedThroughput = {
+        _provisionedThroughput = {
             "ReadCapacityUnits": 5,
             "WriteCapacityUnits": 5
         };
@@ -86,12 +86,12 @@ class DynamoDBTest extends ImpTestCase {
             _db = AWSDynamoDB(AWS_DYNAMO_REGION, AWS_DYNAMO_ACCESS_KEY_ID, AWS_DYNAMO_SECRET_ACCESS_KEY);
 
             local randNum = (1.0 * math.rand() / RAND_MAX) * (1000 + 1);
-            _tablename = "testTable." + randNum;
+            _tableName = "testTable." + randNum;
             local params = {
-                "AttributeDefinitions": _AttributeDefinitions,
-                "KeySchema": _KeySchema,
-                "ProvisionedThroughput": _ProvisionedThroughput,
-                "TableName": _tablename
+                "AttributeDefinitions": _attributeDefinitions,
+                "KeySchema": _keySchema,
+                "ProvisionedThroughput": _provisionedThroughput,
+                "TableName": _tableName
             };
 
             // Create a table with random name per test testTable.randNum
@@ -100,7 +100,7 @@ class DynamoDBTest extends ImpTestCase {
                 // check status code indication successful creation
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                     local describeParams = {
-                        "TableName": _tablename
+                        "TableName": _tableName
                     };
 
                     // wait for the table to finish being created
@@ -193,7 +193,7 @@ class DynamoDBTest extends ImpTestCase {
                     "S": AWS_TEST_FAKE_TIME
                 }
             },
-            "TableName": _tablename,
+            "TableName": _tableName,
             "AttributesToGet": [
                 "time", "status"
             ],
@@ -222,7 +222,7 @@ class DynamoDBTest extends ImpTestCase {
 
         local itemTime = time().tostring();
         local putParams = {
-            "TableName": _tablename,
+            "TableName": _tableName,
             "Item": {
                 "deviceId": {
                     "S": imp.configparams.deviceid
@@ -244,7 +244,7 @@ class DynamoDBTest extends ImpTestCase {
                     "S": itemTime
                 }
             },
-            "TableName": _tablename,
+            "TableName": _tableName,
             "AttributesToGet": [
                 "time", "status"
             ],
@@ -287,7 +287,7 @@ class DynamoDBTest extends ImpTestCase {
         local itemTime = time().tostring();
 
         local putParams = {
-            "TableName": _tablename,
+            "TableName": _tableName,
             "Item": {
                 "deviceId": {
                     "S": imp.configparams.deviceid
@@ -310,14 +310,14 @@ class DynamoDBTest extends ImpTestCase {
                     "S": itemTime
                 }
             },
-            "TableName": _tablename,
+            "TableName": _tableName,
             "UpdateExpression": "SET newVal = :newVal",
             "ExpressionAttributeValues": {
                 ":newVal": { "S": AWS_TEST_UPDATE_VALUE }
             },
             "ReturnValues": "UPDATED_NEW"
         };
-        
+
         return Promise(function(resolve, reject) {
 
             _db.PutItem(putParams, function(res) {
@@ -352,7 +352,7 @@ class DynamoDBTest extends ImpTestCase {
 
         local itemTime = time().tostring();
         local putParams = {
-            "TableName": _tablename,
+            "TableName": _tableName,
             "Item": {
                 "deviceId": {
                     "S": imp.configparams.deviceid
@@ -374,7 +374,7 @@ class DynamoDBTest extends ImpTestCase {
                     "S": itemTime
                 }
             },
-            "TableName": _tablename,
+            "TableName": _tableName,
             "ReturnValues": "ALL_OLD"
         };
         return Promise(function(resolve, reject) {
@@ -406,9 +406,9 @@ class DynamoDBTest extends ImpTestCase {
     // Wait for the table to be updated. Then check if updates went through via scan
     function testBatchWriteItem() {
         local createParams = {
-            "AttributeDefinitions": _AttributeDefinitions,
-            "KeySchema": _KeySchema,
-            "ProvisionedThroughput": _ProvisionedThroughput,
+            "AttributeDefinitions": _attributeDefinitions,
+            "KeySchema": _keySchema,
+            "ProvisionedThroughput": _provisionedThroughput,
             "TableName": "testTable"
         };
         local writeParams = {
@@ -472,9 +472,9 @@ class DynamoDBTest extends ImpTestCase {
     function testBatchGetItem() {
 
         local createParams = {
-            "AttributeDefinitions": _AttributeDefinitions,
-            "KeySchema": _KeySchema,
-            "ProvisionedThroughput": _ProvisionedThroughput,
+            "AttributeDefinitions": _attributeDefinitions,
+            "KeySchema": _keySchema,
+            "ProvisionedThroughput": _provisionedThroughput,
             "TableName": "testTable2"
         };
         local itemTime1 = time().tostring();
@@ -580,9 +580,9 @@ class DynamoDBTest extends ImpTestCase {
         local randNum = (1.0 * math.rand() / RAND_MAX) * (1000 + 1);
         local tableName = "testTable." + randNum;
         local params = {
-            "AttributeDefinitions": _AttributeDefinitions,
-            "KeySchema": _KeySchema,
-            "ProvisionedThroughput": _ProvisionedThroughput,
+            "AttributeDefinitions": _attributeDefinitions,
+            "KeySchema": _keySchema,
+            "ProvisionedThroughput": _provisionedThroughput,
             "TableName": tableName
         };
         return Promise(function(resolve, reject) {
@@ -592,8 +592,8 @@ class DynamoDBTest extends ImpTestCase {
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                     try {
                         this.assertTrue(http.jsondecode(res.body).TableDescription.TableName == tableName, "Actual TableName: " + http.jsondecode(res.body).TableDescription.TableName);
-                        this.assertDeepEqual(_AttributeDefinitions, http.jsondecode(res.body).TableDescription.AttributeDefinitions, "AttributeDefinitions of created table does match what was intended");
-                        this.assertDeepEqual(_KeySchema, http.jsondecode(res.body).TableDescription.KeySchema, "keyschema of created table does match what was intended");
+                        this.assertDeepEqual(_attributeDefinitions, http.jsondecode(res.body).TableDescription.AttributeDefinitions, "AttributeDefinitions of created table does match what was intended");
+                        this.assertDeepEqual(_keySchema, http.jsondecode(res.body).TableDescription.KeySchema, "keyschema of created table does match what was intended");
                         afterCreateTable(tableName, function(res) {
                             resolve("Successfully created a table");
                         });
@@ -651,13 +651,13 @@ class DynamoDBTest extends ImpTestCase {
 
         return Promise(function(resolve, reject) {
 
-            _db.DescribeTable({ "TableName": _tablename }, function(res) {
+            _db.DescribeTable({ "TableName": _tableName }, function(res) {
 
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                     try {
-                        this.assertTrue(http.jsondecode(res.body).Table.TableName == _tablename, "the wrong table described was described");
-                        this.assertDeepEqual(_AttributeDefinitions, http.jsondecode(res.body).Table.AttributeDefinitions, "AttributeDefinitions of created table does match what was intended");
-                        this.assertDeepEqual(_KeySchema, http.jsondecode(res.body).Table.KeySchema, "keyschema of created table does match what was intended");
+                        this.assertTrue(http.jsondecode(res.body).Table.TableName == _tableName, "the wrong table described was described");
+                        this.assertDeepEqual(_attributeDefinitions, http.jsondecode(res.body).Table.AttributeDefinitions, "AttributeDefinitions of created table does match what was intended");
+                        this.assertDeepEqual(_keySchema, http.jsondecode(res.body).Table.KeySchema, "keyschema of created table does match what was intended");
                         resolve("Successfully described table.");
                     } catch (e) {
                         reject(e);
@@ -700,7 +700,7 @@ class DynamoDBTest extends ImpTestCase {
     // describes the table once it is updated to see if changes were made
     function testUpdateTable() {
         local params = {
-            "TableName": _tablename,
+            "TableName": _tableName,
             "ProvisionedThroughput": {
                 "ReadCapacityUnits": 6,
                 "WriteCapacityUnits": 6
@@ -713,7 +713,7 @@ class DynamoDBTest extends ImpTestCase {
 
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
 
-                    checkTableUpdated({ "TableName": _tablename }, function(res) {
+                    checkTableUpdated({ "TableName": _tableName }, function(res) {
                         if (typeof(res) == "string") {
                             reject(res);
                         } else {
@@ -908,7 +908,7 @@ class DynamoDBTest extends ImpTestCase {
 
 
     // return an array of TableNames
-    // checks for _tablename is listed
+    // checks for _tableName is listed
     function testListTables() {
 
         local params = {
@@ -922,7 +922,7 @@ class DynamoDBTest extends ImpTestCase {
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                     try {
                         for (local i = 0; i < arrayTableNames.len(); i++) {
-                            if (arrayTableNames[i] == _tablename) {
+                            if (arrayTableNames[i] == _tableName) {
                                 this.assertTrue(true);
                                 return resolve("Successfully listed tables.");
                             }
@@ -968,7 +968,7 @@ class DynamoDBTest extends ImpTestCase {
         return Promise(function(resolve, reject) {
 
             local params = {
-                "TableName": _tablename,
+                "TableName": _tableName,
                 "KeyConditionExpression": "deviceId = :deviceId",
                 "ExpressionAttributeValues": {
                     ":deviceId": {
@@ -1000,7 +1000,7 @@ class DynamoDBTest extends ImpTestCase {
     function testScan() {
 
         local params = {
-            "TableName": _tablename,
+            "TableName": _tableName,
         };
         return Promise(function(resolve, reject) {
 
@@ -1029,7 +1029,7 @@ class DynamoDBTest extends ImpTestCase {
         return Promise(function(resolve, reject) {
 
             local params = {
-                "TableName": _tablename
+                "TableName": _tableName
             };
             describeAndDeleteTable(params, function(result) {
 
