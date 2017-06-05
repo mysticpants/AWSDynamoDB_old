@@ -63,7 +63,7 @@ Responses				| Table 				   | Each object in Responses consists of a table name,
 UnprocessedKeys			| Table 				   | A map of tables and their respective keys that were not processed with the current response
 
 ### Example
-Retrieves data from the database that was previously initialised in the CreateTable [example](#Example-of-BatchWriteItem). Data values can placed in the database via the BatchWriteItem [example](#Example-of-BatchWriteItem)
+Retrieves data from the database that was previously initialised in the CreateTable [example](#example-1). Data values can placed in the database via the BatchWriteItem [example](#ida)
 
 ```squirrel
 
@@ -120,8 +120,9 @@ ConsumedCapacity		| Array of tables | The capacity units consumed by the entire 
 ItemCollectionMetrics	| Array of tables | A list of tables that were processed by BatchWriteItem and, for each table, information about any item collections that were affected by individual DeleteItem or PutItem operations
 UnprocessedItems		| Array of tables | A map of tables and requests against those tables that were not processed. The UnprocessedItems value is in the same form as RequestItems, so you can provide this value directly to a subsequent BatchGetItem operation
 
-### Example-of-BatchWriteItem
 
+### Example 1
+<a id="ida"></a>
 ```squirrel
 local writeParams = {
     "RequestItems": {
