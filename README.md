@@ -63,7 +63,7 @@ Responses				| Table 				   | Each object in Responses consists of a table name,
 UnprocessedKeys			| Table 				   | A map of tables and their respective keys that were not processed with the current response
 
 ### Example
-Retrieves data from the database that was previously initialised in the CreateTable [example](#example-1). Data values can placed in the database via the BatchWriteItem [example](#ida)
+Retrieves data from the database that was previously initialised in the CreateTable [example](#idb). Data values can placed in the database via the BatchWriteItem [example](#ida)
 
 ```squirrel
 
@@ -121,7 +121,8 @@ ItemCollectionMetrics	| Array of tables | A list of tables that were processed b
 UnprocessedItems		| Array of tables | A map of tables and requests against those tables that were not processed. The UnprocessedItems value is in the same form as RequestItems, so you can provide this value directly to a subsequent BatchGetItem operation
 
 
-### Example 1
+### Example
+Sends data to the database that was previously initialised in the CreateTable [example](#idb)
 <a id="ida"></a>
 ```squirrel
 local writeParams = {
@@ -198,7 +199,7 @@ Parameter       		|       Type     | Description
 TableDescription		| Table 		 | Represents the properties of a table. See: [here](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
 
 ### Example
-
+<a id="idb"></a>
 ```squirrel
 local randNum = (1.0 * math.rand() / RAND_MAX) * (1000 + 1);
 local tableName = "testTable2";
@@ -273,7 +274,7 @@ ConsumedCapacity		| Table      	 | The capacity units consumed by the PutItem op
 ItemCollectionMetrics	| Table    	     | Information about item collections, if any, that were affected by the PutItem operation. See [here](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html)
 
 ### Example
-
+Deletes specified item in the database that was previously initialised in the CreateTable [example](#idb)
 ```squirrel
 local tableName = "Your Table Name";
 local itemTime = time().tostring();
@@ -452,7 +453,7 @@ ConsumedCapacity	   | Table					   | The capacity units consumed by the GetItem 
 Item				   | Table 					   | A map of attribute names to AttributeValue objects. See [here](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
 
 ### Example
-Follows from GetItem
+Gets specified item in the database that was previously initialised in the CreateTable [example](#idb)
 ```squirrel
 local tableName  = "YOUR_TABLE_NAME";
 local itemTime = time().tostring();
@@ -556,7 +557,7 @@ ItemCollectionMetrics	| Table    	     | Information about item collections, if 
 
 
 ### Example
-
+Puts specified item in the database that was previously initialised in the CreateTable [example](#idb)
 ```squirrel
 local tableName = "YOUR_TABLE_NAME";
 local putParams = {
@@ -629,6 +630,7 @@ ScannedCount			| Integer		  | The number of items evaluated, before any QueryFil
 ### Example
 
 ```squirrel
+local tableName = "YOUR_TABLE_NAME";
 local params = {
     "TableName": tableName,
     "KeyConditionExpression": "deviceId = :deviceId",
@@ -695,6 +697,7 @@ ScannedCount			| Integer		  | The number of items evaluated, before any QueryFil
 ### Example
 
 ```squirrel
+local tableName = "YOUR_TABLE_NAME";
 local params = {
     "TableName": tableName,
 };
@@ -748,8 +751,9 @@ ConsumedCapacity	   | Table			| See: [here](http://docs.aws.amazon.com/amazondyn
 ItemCollectionMetrics  | Table 			| See: [here](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html)
 
 ### Example
-Follows from put item
+Updtades specified item in the database that was previously initialised in the CreateTable [example](#idb)
 ```squirrel
+local tableName = "YOUR_TABLE_NAME";
 local updateParams = {
     "Key": {
         "deviceId": {
@@ -807,7 +811,7 @@ TableDescription	   | Table      	| Represents the properties of a table. See: [
 ## Example
 
 ```squirrel
-
+local tableName = "YOUR_TABLE_NAME";
 local params = {
     "TableName": tableName,
     "ProvisionedThroughput": {
