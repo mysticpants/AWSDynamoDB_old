@@ -28,7 +28,7 @@ class AWSDynamoDB {
     static SERVICE = "dynamodb";
     static TARGET_PREFIX = "DynamoDB_20120810";
 
-    // the
+    // the aws request object
     _awsRequest = null;
 
 
@@ -70,6 +70,7 @@ class AWSDynamoDB {
     }
 
 
+
     //	The CreateTable operation adds a new table to your account
     //
     // 	Parameters:
@@ -88,11 +89,11 @@ class AWSDynamoDB {
     //    params				table of parameters to be sent as part of the request
     //    cb                    callback function to be called when response received
     //							from aws
+
     function DeleteItem(params, cb) {
         local headers = { "X-Amz-Target": format("%s.DeleteItem", TARGET_PREFIX) };
         _awsRequest.post("/", headers, http.jsonencode(params), cb);
     }
-
 
     //	Deletes a table
     //
@@ -104,6 +105,7 @@ class AWSDynamoDB {
         local headers = { "X-Amz-Target": format("%s.DeleteTable", TARGET_PREFIX) };
         _awsRequest.post("/", headers, http.jsonencode(params), cb);
     }
+
 
 
     //	Returns the current provisioned-capacity limits for your AWS account in
@@ -183,7 +185,6 @@ class AWSDynamoDB {
         _awsRequest.post("/", headers, http.jsonencode(params), cb);
     }
 
-
     //  The Scan operation returns one or more items and item attributes by
     //  accessing every item in a Table or a secondary index
     //
@@ -204,13 +205,12 @@ class AWSDynamoDB {
     //    params				table of parameters to be sent as part of the request
     //    cb                    callback function to be called when response received
     //							from aws
-
     function UpdateItem(params, cb) {
         local headers = { "X-Amz-Target": format("%s.UpdateItem", TARGET_PREFIX) };
         _awsRequest.post("/", headers, http.jsonencode(params), cb);
     }
-
-
+    
+    
     //  Modifies the provisioned throughput settings, global secondary indexes,
     //  or DynamoDB Streams settings for a given table
     //

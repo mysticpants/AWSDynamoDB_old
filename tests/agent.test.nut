@@ -57,18 +57,22 @@ class DynamoDBTest extends ImpTestCase {
     _provisionedThroughput = null;
 
 
+
     // instantiates the class (AWSDynamoDB) as _db
     // Creates a table named testTable.randNum
     function setUp() {
         // Parameters to set up categories for a table
         _keySchema = [{
+
             "AttributeName": "deviceId",
             "KeyType": "HASH"
         }, {
             "AttributeName": "time",
             "KeyType": "RANGE"
         }];
+
         _attributeDefinitions = [{
+
             "AttributeName": "deviceId",
             "AttributeType": "S"
         }, {
@@ -76,6 +80,7 @@ class DynamoDBTest extends ImpTestCase {
             "AttributeType": "S"
         }];
         _provisionedThroughput = {
+
             "ReadCapacityUnits": 5,
             "WriteCapacityUnits": 5
         };
@@ -101,6 +106,7 @@ class DynamoDBTest extends ImpTestCase {
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
                     local describeParams = {
                         "TableName": _tableName
+
                     };
 
                     // wait for the table to finish being created
@@ -194,6 +200,7 @@ class DynamoDBTest extends ImpTestCase {
                 }
             },
             "TableName": _tableName,
+
             "AttributesToGet": [
                 "time", "status"
             ],
@@ -223,6 +230,7 @@ class DynamoDBTest extends ImpTestCase {
         local itemTime = time().tostring();
         local putParams = {
             "TableName": _tableName,
+
             "Item": {
                 "deviceId": {
                     "S": imp.configparams.deviceid
@@ -352,6 +360,7 @@ class DynamoDBTest extends ImpTestCase {
 
         local itemTime = time().tostring();
         local putParams = {
+
             "TableName": _tableName,
             "Item": {
                 "deviceId": {
@@ -475,6 +484,7 @@ class DynamoDBTest extends ImpTestCase {
             "AttributeDefinitions": _attributeDefinitions,
             "KeySchema": _keySchema,
             "ProvisionedThroughput": _provisionedThroughput,
+
             "TableName": "testTable2"
         };
         local itemTime1 = time().tostring();
@@ -712,7 +722,7 @@ class DynamoDBTest extends ImpTestCase {
             _db.UpdateTable(params, function(res) {
 
                 if (res.statuscode >= AWS_TEST_HTTP_RESPONSE_SUCCESS && res.statuscode < AWS_TEST_HTTP_RESPONSE_SUCCESS_UPPER_BOUND) {
-
+                
                     checkTableUpdated({ "TableName": _tableName }, function(res) {
                         if (typeof(res) == "string") {
                             reject(res);
@@ -908,6 +918,7 @@ class DynamoDBTest extends ImpTestCase {
 
 
     // return an array of TableNames
+
     // checks for _tableName is listed
     function testListTables() {
 

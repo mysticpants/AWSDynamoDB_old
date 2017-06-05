@@ -2,6 +2,7 @@
 
 This example shows who to create a DynamoDB database that you will be able to transmit data to and retrieve data from.
 
+
 As the sample code includes the private key verbatim in the source, it should be treated carefully, and not checked into version control!
 
 
@@ -36,6 +37,7 @@ As the sample code includes the private key verbatim in the source, it should be
 1. Press `Next: Review`
 1. Press `Create user`
 1. Copy down your `Access key ID` and `Secret access key`
+
 
 The names used align with the *sample.agent.nut* code.
 

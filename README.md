@@ -37,10 +37,8 @@ db <- AWSDynamoDB(AWS_DYNAMO_REGION, AWS_DYNAMO_ACCESS_KEY_ID, AWS_DYNAMO_SECRET
 ```
 
 
-
 ### BatchGetItem(params, cb)
 The BatchGetItem operation returns the attributes of one or more items from one or more tables. You identify requested items by primary key. For more detail please see: [here](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html)
-
 
  Parameter       	   |       Type     | Description
 ---------------------- | -------------- | -----------
@@ -48,6 +46,7 @@ The BatchGetItem operation returns the attributes of one or more items from one 
 **cb**                 | Function       | Callback function that takes one parameter (a response table)
 
 where `params` includes
+
 
 Parameter      	 	    |       Type	    | Required	| Default | Description
 ---------------------   | ----------------- | --------  | ------- | ----------
@@ -99,10 +98,12 @@ db.BatchGetItem(getParams, function(res) {
 The BatchWriteItem operation puts or deletes multiple items in one or more tables. For more detail please see:
 [here](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)
 
+
  Parameter       	   |       Type     | Description
 ---------------------- | -------------- | -----------
 **params** 			   | Table          | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
+
 
 where `params` includes
 
@@ -582,8 +583,10 @@ db.PutItem(putParams, function(res) {
     else {
     server.log("failed to put item, error: " + res.statuscode);
     }
+
 });
 ```
+
 
 
 
@@ -787,6 +790,7 @@ db.UpdateItem(updateParams, function(res) {
 Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table. For more detail please see:
 [here](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html)
 
+
  Parameter       	   |       Type     | Description
 ---------------------- | -------------- | -----------
 **params** 			   | Table          | Table of parameters (See API Reference)
@@ -808,9 +812,11 @@ Parameter       	   |       Type     | Description
 ---------------------- | -------------- | -----------
 TableDescription	   | Table      	| Represents the properties of a table. See: [here](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
 
+
 ## Example
 
 ```squirrel
+
 local tableName = "YOUR_TABLE_NAME";
 local params = {
     "TableName": tableName,
@@ -833,7 +839,9 @@ db.UpdateTable(params, function(res) {
 
 
 #### Response Table
+
 The format of the callback response. A table general to all functions
+
 
 Key		              |       Type     | Description
 --------------------- | -------------- | -----------
