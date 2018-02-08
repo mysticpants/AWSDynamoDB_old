@@ -35,7 +35,7 @@ const AWS_DYNAMO_REGION = "YOUR_REGION_HERE";
 // informs when table finish being created
 function checkTable(params, cb) {
 
-    db.DescribeTable(params, function(res) {
+    db.describeTable(params, function(res) {
 
         if (res.statuscode >= 200 && res.statuscode < 300) {
             if (http.jsondecode(res.body).Table.TableStatus == "ACTIVE") {
@@ -116,7 +116,7 @@ local getParams = {
 
 
 // Runtime
-db.CreateTable(params, function(res) {
+db.createTable(params, function(res) {
 
     if (res.statuscode >= 200 && res.statuscode < 300) {
         // check table is created
@@ -124,16 +124,16 @@ db.CreateTable(params, function(res) {
 
             server.log("Table creation successful");
             // puts an item in the table
-            db.PutItem(putParams, function(res) {
+            db.putItem(putParams, function(res) {
 
                 server.log("Item put in table Successfully");
                 // waits until item is put table
                 checkTable({ "TableName": "test" }, function(res) {
 
-                    db.GetItem(getParams, function(res) {
+                    db.getItem(getParams, function(res) {
 
                         server.log("retrieveval successful retrieved time: " + http.jsondecode(res.body).Item.time.S);
-                        db.DeleteTable({ "TableName": "test" }, function(res) {
+                        db.deleteTable({ "TableName": "test" }, function(res) {
 
                             server.log("Successfully deleted table");
                         });
