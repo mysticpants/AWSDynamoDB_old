@@ -15,10 +15,10 @@ Here is some agent [code](sample.agent.nut).
 
 Set the example code configuration parameters Enter your aws keys and your AWS region.
 
-Parameter             			 | Description
+Parameter                        | Description
 -------------------------------- | -----------
 AWS_DYNAMO_ACCESS_KEY_ID         | IAM Access Key ID
 AWS_DYNAMO_SECRET_ACCESS_KEY     | IAM Secret Access Key
-AWS_DYNAMO_REGION				 | AWS region
+AWS_DYNAMO_REGION                | AWS region
 
 Run the example code and it should create a dynamoDB table, put a item in the table and retrieve it. After this the table is deleted.
