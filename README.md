@@ -52,10 +52,10 @@ Parameter              | Type           | Description
 
 where `params` includes:
 
-Parameter              | Type              | Required | Description
----------------------  | ----------------- | -------- | -----------
-RequestItems           | Table             | Yes      | A map of one or more table names and, for each table, a list of operations to be performed (DeleteRequest or PutRequest)
-ReturnConsumedCapacity | String            | No       | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
+Parameter              | Type              | Required | Default | Description
+---------------------  | ----------------- | -------- | ------- | -----------
+RequestItems           | Table             | Yes      | N/A     | A map of one or more table names and, for each table, a list of operations to be performed (DeleteRequest or PutRequest)
+ReturnConsumedCapacity | String            | No       | NONE    | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
 
 #### Response
 
@@ -105,11 +105,11 @@ The `batchWriteItem` operation puts or deletes multiple items in one or more tab
 
 where `params` includes:
 
-Parameter                   | Type                                  | Required | Description
---------------------------- | ------------------------------------- | -------- | -----------
-RequestItems                | Table                                 | Yes      | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_WriteRequest.html)
-ReturnConsumedCapacity      | String                                | No       | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
-ReturnItemCollectionMetrics | String                                | No       | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
+Parameter                   | Type                                  | Required | Default | Description
+--------------------------- | ------------------------------------- | -------- | ------- | -----------
+RequestItems                | Table                                 | Yes      | N/A     | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_WriteRequest.html)
+ReturnConsumedCapacity      | String                                | No       | NONE    | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
+ReturnItemCollectionMetrics | String                                | No       | NONE    | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
 
 #### Response
 
@@ -183,15 +183,15 @@ The `createTable` operation adds a new table to your account. In an AWS account,
 
 where `params` includes:
 
-Parameter                   | Type             | Required | Description
---------------------------- | -----------------| -------- | -----------
-AttributeDefinitions        | Array of tables  | Yes      | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeDefinition.html)
-KeySchema                   | Array of tables  | Yes      | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_KeySchemaElement.html)
-ProvisionedThroughput       | Table            | Yes      | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html)
-TableName                   | String           | Yes      | The name of the table to create
-GlobalSecondaryIndexes      | Array of tables  | No       | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalSecondaryIndex.html)
-LocalSecondaryIndexes       | Array of tables  | No       | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_LocalSecondaryIndex.html)
-StreamSpecifiation          | Table            | No       | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html)
+Parameter                   | Type             | Required | Default | Description
+--------------------------- | -----------------| -------- | ------- | -----------
+AttributeDefinitions        | Array of tables  | Yes      | N/A     | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeDefinition.html)
+KeySchema                   | Array of tables  | Yes      | N/A     | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_KeySchemaElement.html)
+ProvisionedThroughput       | Table            | Yes      | N/A     | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html)
+TableName                   | String           | Yes      | N/A     | The name of the table to create
+GlobalSecondaryIndexes      | Array of tables  | No       | null    | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalSecondaryIndex.html)
+LocalSecondaryIndexes       | Array of tables  | No       | null    | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_LocalSecondaryIndex.html)
+StreamSpecifiation          | Table            | No       | null    | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html)
 
 #### Response
 
@@ -256,16 +256,16 @@ Deletes a single item in a table by primary key. For more detail please see:
 
 where `params` includes:
 
-Parameter                   | Type      | Required | Description
---------------------------- | ----------| -------- | -----------
-Key                         | Table     | Yes      | A map of attribute names to AttributeValue objects, representing the primary key of the item to delete
-TableName                   | String    | Yes      | The name of the table from which to delete the item
-ConditionalExpression       | String    | No       | A condition that must be satisfied in order for a conditional DeleteItem to succeed
-ExpressionAttributeNames    | Table     | No       | One or more substitution tokens for attribute names in an expression
-ExpressionAttributeValues   | Table     | No       | One or more values that can be substituted in an expression
-ReturnConsumedCapacity      | String    | No       | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
-ReturnItemCollectionMetrics | String    | No       | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
-ReturnValues                | String    | No       | Use ALL_OLD if you want to get the item attributes as they appeared before they were deleted else NONE (default) where nothing is returned
+Parameter                   | Type      | Required | Default | Description
+--------------------------- | ----------| -------- | ------- | -----------
+Key                         | Table     | Yes      | N/A     | A map of attribute names to AttributeValue objects, representing the primary key of the item to delete
+TableName                   | String    | Yes      | N/A     | The name of the table from which to delete the item
+ConditionalExpression       | String    | No       | null    | A condition that must be satisfied in order for a conditional DeleteItem to succeed
+ExpressionAttributeNames    | Table     | No       | null    | One or more substitution tokens for attribute names in an expression
+ExpressionAttributeValues   | Table     | No       | null    | One or more values that can be substituted in an expression
+ReturnConsumedCapacity      | String    | No       | NONE    | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
+ReturnItemCollectionMetrics | String    | No       | NONE    | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
+ReturnValues                | String    | No       | NONE    | Use ALL_OLD if you want to get the item attributes as they appeared before they were deleted else NONE (default) where nothing is returned
 
 #### Response
 
@@ -319,11 +319,13 @@ Parameter              | Type           | Description
 
 where `params` includes:
 
-Parameter              | Type           | Required | Description
----------------------- | -------------- | -------- | -----------
-TableName              | String         | Yes      | The name of the table to delete
+Parameter              | Type           | Required | Default | Description
+---------------------- | -------------- | -------- | ------- | -----------
+TableName              | String         | Yes      | N/A     | The name of the table to delete
 
-where `res.body` can include the following JSON encoded parameters
+#### Response
+
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -362,7 +364,9 @@ Returns the current provisioned-capacity limits for your AWS account in a region
 
 where `params` includes no content.
 
-where `res.body` can include the following JSON encoded parameters
+#### Response
+
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
 
 Parameter                    | Type           | Description
 ---------------------------- | -------------- | -----------
@@ -400,9 +404,9 @@ Parameter              | Type           | Description
 
 where `params` includes:
 
-Parameter             | Type            | Required | Description
---------------------- | --------------- | -------- | -----------
-TableName             | String          | Yes      | The name of the table to describe
+Parameter             | Type            | Required | Default | Description
+--------------------- | --------------- | -------- | ------- | -----------
+TableName             | String          | Yes      | N/A     | The name of the table to describe
 
 #### Response
 
@@ -441,17 +445,19 @@ Parameter              | Type           | Description
 
 where `params` includes:
 
-Parameter                   | Type               | Required | Description
---------------------------- | ------------------ | -------- | -----------
-Key                         | Table              | Yes      | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
-TableName                   | String             | Yes      | The name of the table containing the requested item
-AttributesToGet             | Array of strings   | No       | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
-ConsistentRead              | Boolean            | No       | If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads
-ExpressionAttributeNames    | Table              | No       | One or more substitution tokens for attribute names in an expression
-ProjectionExpression        | String             | No       |  string that identifies one or more attributes to retrieve from the table. These attributes can include scalars, sets, or elements of a JSON document. The attributes in the expression must be separated by commas
-ReturnConsumedCapacity      | String             | No       | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
+Parameter                   | Type               | Required | Default | Description
+--------------------------- | ------------------ | -------- | ------- | -----------
+Key                         | Table              | Yes      | N/A     | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
+TableName                   | String             | Yes      | N/A     | The name of the table containing the requested item
+AttributesToGet             | Array of strings   | No       | null    | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
+ConsistentRead              | Boolean            | No       | null    | If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads
+ExpressionAttributeNames    | Table              | No       | null    | One or more substitution tokens for attribute names in an expression
+ProjectionExpression        | String             | No       | null    |  string that identifies one or more attributes to retrieve from the table. These attributes can include scalars, sets, or elements of a JSON document. The attributes in the expression must be separated by commas
+ReturnConsumedCapacity      | String             | No       | NONE    | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
 
-where `res.body` can include the following JSON encoded parameters
+#### Response
+
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -497,12 +503,14 @@ Parameter              | Type           | Description
 
 where `params` includes:
 
-Parameter                   | Type      | Required | Description
---------------------------- | --------- | -------- | -----------
-ExclusiveStartTableName     | String    | No       | The first table name that this operation will evaluate
-Limit                       | Integer   | No       | A maximum number of table names to return. If this parameter is not specified, the limit is 100
+Parameter                   | Type      | Required | Default | Description
+--------------------------- | --------- | -------- | ------- | -----------
+ExclusiveStartTableName     | String    | No       | null    | The first table name that this operation will evaluate
+Limit                       | Integer   | No       | 100     | A maximum number of table names to return. If this parameter is not specified, the limit is 100
 
-where `res.body` can include the following JSON encoded parameters
+#### Response
+
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
 
 Parameter              | Type              | Description
 ---------------------- | ----------------- | -----------
@@ -541,17 +549,17 @@ Parameter              | Type           | Description
 
 where `params` includes:
 
-Parameter                   | Type               | Required | Description
---------------------------- | ------------------ | -------- | -----------
-Item                        | Table              | Yes      | A map of attribute name/value pairs, one for each attribute. Only the primary key attributes are required; you can optionally provide other attribute name-value pairs for the item
-TableName                   | String             | Yes      | The name of the table to contain the  item
-ConditionalExpression       | String             | No       | A condition that must be satisfied in order for a conditional PutItem to succeed
-AttributesToGet             | Array of strings   | No       | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
-ExpressionAttributeNames    | Table              | No       | One or more substitution tokens for attribute names in an expression
-ExpressionAttributeValues   | Table              | No       | One or more values that can be substituted in an expression [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
-ReturnConsumedCapacity      | String             | No       | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details
-ReturnItemCollectionMetrics | String             | No       | Valid Values: SIZE, NONE. If set to SIZE, the response includes statistics about item collections. if set to NONE no statistics are returned
-ReturnValues                | String             | No       | Valid Values ALL_OLD, NONE. ALL_OLD - if PutItem overwrote an attribute name-value pair the content of the old item is returned. NONE - nothing is returned.
+Parameter                   | Type               | Required | Default | Description
+--------------------------- | ------------------ | -------- | ------- | -----------
+Item                        | Table              | Yes      | N/A     | A map of attribute name/value pairs, one for each attribute. Only the primary key attributes are required; you can optionally provide other attribute name-value pairs for the item
+TableName                   | String             | Yes      | N/A     | The name of the table to contain the  item
+ConditionalExpression       | String             | No       | null    | A condition that must be satisfied in order for a conditional PutItem to succeed
+AttributesToGet             | Array of strings   | No       | null    | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
+ExpressionAttributeNames    | Table              | No       | null    | One or more substitution tokens for attribute names in an expression
+ExpressionAttributeValues   | Table              | No       | null    | One or more values that can be substituted in an expression [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
+ReturnConsumedCapacity      | String             | No       | NONE    | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details
+ReturnItemCollectionMetrics | String             | No       | NONE    | Valid Values: SIZE, NONE. If set to SIZE, the response includes statistics about item collections. if set to NONE no statistics are returned
+ReturnValues                | String             | No       | NONE    | Valid Values ALL_OLD, NONE. ALL_OLD - if PutItem overwrote an attribute name-value pair the content of the old item is returned. NONE - nothing is returned.
 
 #### Response
 
@@ -606,23 +614,23 @@ Parameter              | Type           | Description
 
 where `params` includes:
 
-Parameter                   | Type               | Required | Description
---------------------------- | -------------------| -------- | -----------
-TableName                   | String             | Yes      | The name of the table containing the requested items
-AttributesToGet             | Array of strings   | No       | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
-ConditionalOperator         | String             | No       | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html)
-ConsistentRead              | Boolean            | No       | If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads
-ExclusiveStartKey           | Table              | No       | The primary key of the first item that this operation will evaluate
-ExpressionAttributeNames    | Table              | No       | One or more substitution tokens for attribute names in an expression
-ExpressionAttributeValues   | Table              | No       | One or more values that can be substituted in an expression
-FilterExpression            | String             | No       | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#FilteringResults)
-IndexName                   | String             | No       | The name of an index to query. This index can be any local secondary index or global secondary index on the table
-KeyConditionExpression      | String             | No       | The condition that specifies the key value(s) for items to be retrieved by the Query action.
-Limit                       | Integer            | No       | The maximum number of items to evaluate (not necessarily the number of matching items)
-ProjectionExpression        | String             | No       | A string that identifies one or more attributes to retrieve from the table
-ReturnConsumedCapacity      | String             | No       | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details
-ScanIndexForward            | Boolean            | No       | Specifies the order for index traversal: If true (default), the traversal is performed in ascending order; if false, the traversal is performed in descending order
-Select                      | String             | No       | The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index
+Parameter                   | Type               | Required | Default | Description
+--------------------------- | -------------------| -------- | ------- | -----------
+TableName                   | String             | Yes      | N/A     | The name of the table containing the requested items
+AttributesToGet             | Array of strings   | No       | null    | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
+ConditionalOperator         | String             | No       | null    | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html)
+ConsistentRead              | Boolean            | No       | null    | If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads
+ExclusiveStartKey           | Table              | No       | null    | The primary key of the first item that this operation will evaluate
+ExpressionAttributeNames    | Table              | No       | null    | One or more substitution tokens for attribute names in an expression
+ExpressionAttributeValues   | Table              | No       | null    | One or more values that can be substituted in an expression
+FilterExpression            | String             | No       | null    | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#FilteringResults)
+IndexName                   | String             | No       | null    | The name of an index to query. This index can be any local secondary index or global secondary index on the table
+KeyConditionExpression      | String             | No       | null    | The condition that specifies the key value(s) for items to be retrieved by the Query action.
+Limit                       | Integer            | No       | null    | The maximum number of items to evaluate (not necessarily the number of matching items)
+ProjectionExpression        | String             | No       | null    | A string that identifies one or more attributes to retrieve from the table
+ReturnConsumedCapacity      | String             | No       | NONE    | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details
+ScanIndexForward            | Boolean            | No       | null    | Specifies the order for index traversal: If true (default), the traversal is performed in ascending order; if false, the traversal is performed in descending order
+Select                      | String             | No       | null    | The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index
 
 #### Response
 
@@ -674,23 +682,23 @@ Parameter              | Type           | Description
 
 where `params` includes:
 
-Parameter                   | Type              | Required | Description
---------------------------- | ------------------| -------- | -----------
-TableName                   | String            | Yes      | The name of the table containing the requested items; or, if you provide IndexName, the name of the table to which that index belongs
-AttributesToGet             | Array of strings  | No       | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
-ConditionalOperator         | String            | No       | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html)
-ConsistentRead              | Boolean           | No       | If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads
-ExclusiveStartKey           | Table             | No       | The primary key of the first item that this operation will evaluate
-ExpressionAttributeNames    | Table             | No       | One or more substitution tokens for attribute names in an expression
-ExpressionAttributeValues   | table             | No       | One or more values that can be substituted in an expression
-FilterExpression            | String            | No       | One or more values that can be substituted in an expression [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#FilteringResults)
-IndexName                   | String            | No       | The name of a secondary index to scan
-Limit                       | Integer           | No       | The maximum number of items to evaluate (not necessarily the number of matching items)
-ProjectionExpression        | String            | No       | A string that identifies one or more attributes to retrieve from the table
-ReturnConsumedCapacity      | String            | No       | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details
-Segment                     | Integer           | No       | For a parallel Scan request, Segment identifies an individual segment to be scanned by an application worker
-Select                      | String            | No       | The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index
-TotalSegments               | Integer           | No       | For a parallel Scan request, TotalSegments represents the total number of segments into which the Scan operation will be divided
+Parameter                   | Type              | Required | Default | Description
+--------------------------- | ------------------| -------- | ------- | -----------
+TableName                   | String            | Yes      | N/A     | The name of the table containing the requested items; or, if you provide IndexName, the name of the table to which that index belongs
+AttributesToGet             | Array of strings  | No       | null    | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
+ConditionalOperator         | String            | No       | null    | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html)
+ConsistentRead              | Boolean           | No       | null    | If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads
+ExclusiveStartKey           | Table             | No       | null    | The primary key of the first item that this operation will evaluate
+ExpressionAttributeNames    | Table             | No       | null    | One or more substitution tokens for attribute names in an expression
+ExpressionAttributeValues   | table             | No       | null    | One or more values that can be substituted in an expression
+FilterExpression            | String            | No       | null    | One or more values that can be substituted in an expression [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#FilteringResults)
+IndexName                   | String            | No       | null    | The name of a secondary index to scan
+Limit                       | Integer           | No       | null    | The maximum number of items to evaluate (not necessarily the number of matching items)
+ProjectionExpression        | String            | No       | null    | A string that identifies one or more attributes to retrieve from the table
+ReturnConsumedCapacity      | String            | No       | NONE    | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details
+Segment                     | Integer           | No       | null    | For a parallel Scan request, Segment identifies an individual segment to be scanned by an application worker
+Select                      | String            | No       | null    | The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index
+TotalSegments               | Integer           | No       | null    | For a parallel Scan request, TotalSegments represents the total number of segments into which the Scan operation will be divided
 
 #### Response
 
@@ -738,18 +746,18 @@ Parameter              | Type           | Description
 
 where `params` includes:
 
-Parameter                   | Type      | Required | Description
---------------------------- | ----------| -------- | -----------
-Key                         | Table     | Yes      | The primary key of the item to be updated. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
-TableName                   | String    | Yes      | The name of the table containing the item to update
-AttributesUpdates           | Table     | No       | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributeUpdates.html)
-ConditionalExpression       | String    | No       | A condition that must be satisfied in order for a conditional UpdateItem to succeed
-ExpressionAttributeNames    | Table     | No       | One or more substitution tokens for attribute names in an expression
-ExpressionAttributeValues   | Table     | No       | One or more values that can be substituted in an expression
-ReturnConsumedCapacity      | String    | No       | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details
-ReturnItemCollectionMetrics | String    | No       | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
-ReturnValues                | String    | No       | Use ReturnValues if you want to get the item attributes as they appeared either before or after they were updated. ALL_OLD for all attributes prior to being changed, All_new for all attributes after the change, UPDATED_OLD for all attributes that were changed but returns values prior to change,UPDATED_NEW for all attributes that were changed but returns values after the change   NONE (default) where nothing is returned.
-UpdateExpression            | String    | No       | An expression that defines one or more attributes to be updated, the action to be performed on them, and new value(s) for them
+Parameter                   | Type      | Required | Default | Description
+--------------------------- | ----------| -------- | ------  | -----------
+Key                         | Table     | Yes      | N/A     | The primary key of the item to be updated. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
+TableName                   | String    | Yes      | N/A     | The name of the table containing the item to update
+AttributesUpdates           | Table     | No       | null    | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributeUpdates.html)
+ConditionalExpression       | String    | No       | null    | A condition that must be satisfied in order for a conditional UpdateItem to succeed
+ExpressionAttributeNames    | Table     | No       | null    | One or more substitution tokens for attribute names in an expression
+ExpressionAttributeValues   | Table     | No       | null    | One or more values that can be substituted in an expression
+ReturnConsumedCapacity      | String    | No       | NONE    | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details
+ReturnItemCollectionMetrics | String    | No       | NONE    | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
+ReturnValues                | String    | No       | NONE    | Use ReturnValues if you want to get the item attributes as they appeared either before or after they were updated. ALL_OLD for all attributes prior to being changed, All_new for all attributes after the change, UPDATED_OLD for all attributes that were changed but returns values prior to change,UPDATED_NEW for all attributes that were changed but returns values after the change   NONE (default) where nothing is returned.
+UpdateExpression            | String    | No       | null    | An expression that defines one or more attributes to be updated, the action to be performed on them, and new value(s) for them
 
 
 #### Response
@@ -805,13 +813,13 @@ Parameter              | Type           | Description
 
 where `params` includes:
 
-Parameter                   | Type             | Required | Description
---------------------------- | -----------------| -------- | -----------
-TableName                   | String           | Yes      | The name of the table to be updated
-AttributeDefinitions        | Table            | No       | An Array of attributes that describe the key schema for the table and indexes
-GlobalSecondaryIndexUpdates | Array of tables  | No       | An array of one or more global secondary indexes for the table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html#API_UpdateTable_RequestSyntax)
-ProvisionedThroughput       | Table            | No       | The new provisioned throughput settings for the specified table or index. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html)
-StreamSpecification         | Table            | No       | Represents the DynamoDB Streams configuration for the table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html)
+Parameter                   | Type             | Required | Default | Description
+--------------------------- | -----------------| -------- | ------- | -----------
+TableName                   | String           | Yes      | N/A     | The name of the table to be updated
+AttributeDefinitions        | Table            | No       | null    | An Array of attributes that describe the key schema for the table and indexes
+GlobalSecondaryIndexUpdates | Array of tables  | No       | null    | An array of one or more global secondary indexes for the table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html#API_UpdateTable_RequestSyntax)
+ProvisionedThroughput       | Table            | No       | null    | The new provisioned throughput settings for the specified table or index. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html)
+StreamSpecification         | Table            | No       | null    | Represents the DynamoDB Streams configuration for the table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html)
 
 #### Response
 
