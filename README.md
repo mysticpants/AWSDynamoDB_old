@@ -40,7 +40,7 @@ db <- AWSDynamoDB(AWS_DYNAMO_REGION, AWS_DYNAMO_ACCESS_KEY_ID, AWS_DYNAMO_SECRET
 
 ### batchGetItem(params, cb)
 The `batchGetItem` operation returns the attributes of one or more items from one or more tables. You identify requested items by primary key. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html)
 
  Parameter             | Type           | Description
 ---------------------- | -------------- | -----------
@@ -91,7 +91,7 @@ db.batchGetItem(getParams, function(res) {
 
 ### batchWriteItem(params, cb)
 The `batchWriteItem` operation puts or deletes multiple items in one or more tables. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)
 
  Parameter             | Type           | Description
 ---------------------- | -------------- | -----------
@@ -102,7 +102,7 @@ where `params` includes
 
 Parameter                   | Type                                  | Required | Description
 --------------------------- | ------------------------------------- | -------- | -----------
-RequestItems                | Table                                 | Yes      | See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_WriteRequest.html
+RequestItems                | Table                                 | Yes      | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_WriteRequest.html)
 ReturnConsumedCapacity      | String                                | No       | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
 ReturnItemCollectionMetrics | String                                | No       | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
 
@@ -167,7 +167,7 @@ db.batchWriteItem(writeParams, function(res) {
 
 ### createTable(params, cb)
 The `createTable` operation adds a new table to your account. In an AWS account, table names must be unique within each region. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html)
 
  Parameter             | Type           | Description
 ---------------------- | -------------- | -----------
@@ -176,21 +176,21 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.ht
 
 where `params` includes
 
-Parameter                   | Type                                 | Required | Description
---------------------------- | ------------------------------------ | -------- | -----------
-AttributeDefinitions        | Array    of  tables                  | Yes      | See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeDefinition.html
-KeySchema                   | Array of  tables                     | Yes      | See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_KeySchemaElement.html
-ProvisionedThroughput       | Table                                | Yes      | See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html
-TableName                   | String                               | Yes      | The name of the table to create
-GlobalSecondaryIndexes      | Array of tables                      | No       | See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalSecondaryIndex.html
-LocalSecondaryIndexes       | Array of tables                      | No       | See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_LocalSecondaryIndex.html
-StreamSpecifiation          | Table                                | No       | See  http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html
+Parameter                   | Type             | Required | Description
+--------------------------- | -----------------| -------- | -----------
+AttributeDefinitions        | Array of tables  | Yes      | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeDefinition.html)
+KeySchema                   | Array of tables  | Yes      | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_KeySchemaElement.html)
+ProvisionedThroughput       | Table            | Yes      | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html)
+TableName                   | String           | Yes      | The name of the table to create
+GlobalSecondaryIndexes      | Array of tables  | No       | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GlobalSecondaryIndex.html)
+LocalSecondaryIndexes       | Array of tables  | No       | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_LocalSecondaryIndex.html)
+StreamSpecifiation          | Table            | No       | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html)
 
 where `res.body` includes the following json encoded parameters
 
 Parameter               |       Type     | Description
 ----------------------  | -------------- | -----------
-TableDescription        | Table          | Represents the properties of a table. See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html
+TableDescription        | Table          | Represents the properties of a table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
 
 ### Example
 
@@ -238,7 +238,7 @@ db.createTable(params, function(res) {
 
 ### deleteItem(params, cb)
 Deletes a single item in a table by primary key. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)
 
  Parameter             | Type           | Description
 ---------------------- | -------------- | -----------
@@ -247,24 +247,24 @@ http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.htm
 
 where `params` includes
 
-Parameter                   | Type                                       | Required | Description
---------------------------- | ------------------------------------------ | -------- | -----------
-Key                         | Table                                      | Yes      | A map of attribute names to AttributeValue objects, representing the primary key of the item to delete
-TableName                   | String                                     | Yes      | The name of the table from which to delete the item
-ConditionalExpression       | String                                     | No       | A condition that must be satisfied in order for a conditional DeleteItem to succeed
-ExpressionAttributeNames    | Table                                      | No       | One or more substitution tokens for attribute names in an expression
-ExpressionAttributeValues   | Table                                      | No       | One or more values that can be substituted in an expression
-ReturnConsumedCapacity      | String                                     | No       | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
-ReturnItemCollectionMetrics | String                                     | No       | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
-ReturnValues                | String                                     | No         | Use ALL_OLD if you want to get the item attributes as they appeared before they were deleted else NONE (default) where nothing is returned
+Parameter                   | Type      | Required | Description
+--------------------------- | ----------| -------- | -----------
+Key                         | Table     | Yes      | A map of attribute names to AttributeValue objects, representing the primary key of the item to delete
+TableName                   | String    | Yes      | The name of the table from which to delete the item
+ConditionalExpression       | String    | No       | A condition that must be satisfied in order for a conditional DeleteItem to succeed
+ExpressionAttributeNames    | Table     | No       | One or more substitution tokens for attribute names in an expression
+ExpressionAttributeValues   | Table     | No       | One or more values that can be substituted in an expression
+ReturnConsumedCapacity      | String    | No       | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
+ReturnItemCollectionMetrics | String    | No       | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
+ReturnValues                | String    | No       | Use ALL_OLD if you want to get the item attributes as they appeared before they were deleted else NONE (default) where nothing is returned
 
 where `res.body` includes the following json encoded parameters
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
-Attributes             | Table          | The attribute values as they appeared before the PutItem operation. See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html
-ConsumedCapacity       | Table          | The capacity units consumed by the PutItem operation. See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html
-ItemCollectionMetrics  | Table          | Information about item collections, if any, that were affected by the PutItem operation. See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html
+Attributes             | Table          | The attribute values as they appeared before the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
+ConsumedCapacity       | Table          | The capacity units consumed by the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
+ItemCollectionMetrics  | Table          | Information about item collections, if any, that were affected by the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html)
 
 ### Example
 
@@ -299,24 +299,24 @@ db.deleteItem(deleteParams, function(res) {
 
 ### deleteTable(params, cb)
 For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html)
 
- Parameter             | Type           | Description
+Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | Function       | Callback function that takes one parameter (a response table)
 
 where `params` includes
 
-Parameter             | Type            | Required | Description
---------------------- | --------------- | -------- | -----------
-TableName             | String          | Yes      | The name of the table to delete
+Parameter              | Type           | Required | Description
+---------------------- | -------------- | -------- | -----------
+TableName              | String         | Yes      | The name of the table to delete
 
 where `res.body` can include the following json encoded parameters
 
- Parameter             | Type           | Description
+Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
-TableDescription       | Table          | Represents the properties of a table. See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html
+TableDescription       | Table          | Represents the properties of a table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
 
 
 
@@ -342,7 +342,7 @@ db.deleteTable(params, function(res) {
 
 ### describeLimits(params, cb)
 Returns the current provisioned-capacity limits for your AWS account in a region, both for the region as a whole and for any one DynamoDB table that you create there. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits.html)
 
  Parameter             | Type           | Description
 ---------------------- | -------------- | -----------
@@ -380,7 +380,7 @@ db.describeLimits({}, function(res) {
 
 ### describeTable(params, cb)
 Returns information about the table, including the current status of the table, when it was created, the primary key schema, and any indexes on the table. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html)
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -397,7 +397,7 @@ where `res.body` includes the following json encoded parameters
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
-Table                  | Table          | See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html
+Table                  | Table          | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
 
 ### Example
 
@@ -419,7 +419,7 @@ db.describeTable(params, function(res) {
 
 ### getItem(params, cb)
 The `getItem` operation returns a set of attributes for the item with the given primary key. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -430,9 +430,9 @@ where `params` includes
 
 Parameter                   | Type               | Required | Description
 --------------------------- | ------------------ | -------- | -----------
-Key                         | Table              | Yes      | See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html
+Key                         | Table              | Yes      | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
 TableName                   | String             | Yes      | The name of the table containing the requested item
-AttributesToGet             | Array of strings   | No       | See : http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html
+AttributesToGet             | Array of strings   | No       | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
 ConsistentRead              | Boolean            | No       | If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads
 ExpressionAttributeNames    | Table              | No       | One or more substitution tokens for attribute names in an expression
 ProjectionExpression        | String             | No       |  string that identifies one or more attributes to retrieve from the table. These attributes can include scalars, sets, or elements of a JSON document. The attributes in the expression must be separated by commas
@@ -442,8 +442,8 @@ where `res.body` can include the following json encoded parameters
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
-ConsumedCapacity       | Table          | The capacity units consumed by the GetItem operation. See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html
-Item                   | Table          | A map of attribute names to AttributeValue objects. See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html
+ConsumedCapacity       | Table          | The capacity units consumed by the GetItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
+Item                   | Table          | A map of attribute names to AttributeValue objects. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
 
 ### Example
 Follows from getItem
@@ -475,7 +475,7 @@ db.getItem(getParams, function(res) {
 
 ### listTables(params, cb)
 Returns an array of table names associated with the current account and endpoint. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html)
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -519,7 +519,7 @@ db.listTables(params, function(res) {
 
 ### putItem(params, cb)
 Creates a new item, or replaces an old item with a new item. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -533,9 +533,9 @@ Parameter                   | Type               | Required | Description
 Item                        | Table              | Yes      | A map of attribute name/value pairs, one for each attribute. Only the primary key attributes are required; you can optionally provide other attribute name-value pairs for the item
 TableName                   | String             | Yes      | The name of the table to contain the  item
 ConditionalExpression       | String             | No       | A condition that must be satisfied in order for a conditional PutItem to succeed
-AttributesToGet             | Array of strings   | No       | See : http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html
+AttributesToGet             | Array of strings   | No       | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
 ExpressionAttributeNames    | Table              | No       | One or more substitution tokens for attribute names in an expression
-ExpressionAttributeValues   | Table              | No       | One or more values that can be substituted in an expression http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html
+ExpressionAttributeValues   | Table              | No       | One or more values that can be substituted in an expression [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
 ReturnConsumedCapacity      | String             | No       | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details
 ReturnItemCollectionMetrics | String             | No       | Valid Values: SIZE, NONE. If set to SIZE, the response includes statistics about item collections. if set to NONE no statistics are returned
 ReturnValues                | String             | No       | Valid Values ALL_OLD, NONE. ALL_OLD - if PutItem overwrote an attribute name-value pair the content of the old item is returned. NONE - nothing is returned.
@@ -544,9 +544,9 @@ where `res.body` includes the following json encoded parameters
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
-Attributes             | Table          | The attribute values as they appeared before the PutItem operation. See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html
-ConsumedCapacity       | Table          | The capacity units consumed by the PutItem operation. See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html
-ItemCollectionMetrics  | Table          | Information about item collections, if any, that were affected by the PutItem operation. See http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html
+Attributes             | Table          | The attribute values as they appeared before the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
+ConsumedCapacity       | Table          | The capacity units consumed by the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
+ItemCollectionMetrics  | Table          | Information about item collections, if any, that were affected by the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html)
 
 
 ### Example
@@ -582,7 +582,7 @@ db.putItem(putParams, function(res) {
 
 ### query(params, cb)
 A query operation uses the primary key of a table or a secondary index to directly access items from that table or index. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -594,13 +594,13 @@ where `params` includes
 Parameter                   | Type               | Required | Description
 --------------------------- | -------------------| -------- | -----------
 TableName                   | String             | Yes      | The name of the table containing the requested items
-AttributesToGet             | Array of strings   | No       | See: http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html
-ConditionalOperator         | String             | No       | See: http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html
+AttributesToGet             | Array of strings   | No       | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
+ConditionalOperator         | String             | No       | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html)
 ConsistentRead              | Boolean            | No       | If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads
 ExclusiveStartKey           | Table              | No       | The primary key of the first item that this operation will evaluate
 ExpressionAttributeNames    | Table              | No       | One or more substitution tokens for attribute names in an expression
 ExpressionAttributeValues   | Table              | No       | One or more values that can be substituted in an expression
-FilterExpression            | String             | No       | See: http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#FilteringResults
+FilterExpression            | String             | No       | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#FilteringResults)
 IndexName                   | String             | No       | The name of an index to query. This index can be any local secondary index or global secondary index on the table
 KeyConditionExpression      | String             | No       | The condition that specifies the key value(s) for items to be retrieved by the Query action.
 Limit                       | Integer            | No       | The maximum number of items to evaluate (not necessarily the number of matching items)
@@ -613,7 +613,7 @@ where `res.body` includes the following json encoded parameters
 
 Parameter               | Type            | Description
 ----------------------  | --------------- | -----------
-ConsumedCapacity        | Table           | See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html
+ConsumedCapacity        | Table           | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
 Count                   | Integer         | The number of items in the response
 Items                   | Array of Tables | An array of item attributes that match the query criteria. Each element in this array consists of an attribute name and the value for that attribute
 LastEvaluatedKey        | Table           | The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request
@@ -648,7 +648,7 @@ db.query(params, function(res) {
 
 ### scan(params, cb)
 The `scan` operation returns one or more items and item attributes by accessing every item in a Table or a secondary index. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html)
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -660,13 +660,13 @@ where `params` includes
 Parameter                   | Type              | Required | Description
 --------------------------- | ------------------| -------- | -----------
 TableName                   | String            | Yes      | The name of the table containing the requested items; or, if you provide IndexName, the name of the table to which that index belongs
-AttributesToGet             | Array of strings  | No       | See: http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html
-ConditionalOperator         | String            | No       | See: http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html
+AttributesToGet             | Array of strings  | No       | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
+ConditionalOperator         | String            | No       | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html)
 ConsistentRead              | Boolean           | No       | If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads
 ExclusiveStartKey           | Table             | No       | The primary key of the first item that this operation will evaluate
 ExpressionAttributeNames    | Table             | No       | One or more substitution tokens for attribute names in an expression
 ExpressionAttributeValues   | table             | No       | One or more values that can be substituted in an expression
-FilterExpression            | String            | No       | One or more values that can be substituted in an expression http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#FilteringResults
+FilterExpression            | String            | No       | One or more values that can be substituted in an expression [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#FilteringResults)
 IndexName                   | String            | No       | The name of a secondary index to scan
 Limit                       | Integer           | No       | The maximum number of items to evaluate (not necessarily the number of matching items)
 ProjectionExpression        | String            | No       | A string that identifies one or more attributes to retrieve from the table
@@ -679,7 +679,7 @@ where `res.body` includes the following json encoded parameters
 
 Parameter              | Type            | Description
 ---------------------- | --------------- | -----------
-ConsumedCapacity       | Table           | See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html
+ConsumedCapacity       | Table           | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
 Count                  | Integer         | The number of items in the response
 Items                  | Array of Tables | An array of item attributes that match the query criteria. Each element in this array consists of an attribute name and the value for that attribute
 LastEvaluatedKey       | Table           | The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request
@@ -710,7 +710,7 @@ db.scan(params, function(res) {
 
 ### updateItem(params, cb)
 For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -721,9 +721,9 @@ where `params` includes
 
 Parameter                   | Type      | Required | Description
 --------------------------- | ----------| -------- | -----------
-Key                         | Table     | Yes      | The primary key of the item to be updated. See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html
+Key                         | Table     | Yes      | The primary key of the item to be updated. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
 TableName                   | String    | Yes      | The name of the table containing the item to update
-AttributesUpdates           | Table     | No       | See : http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributeUpdates.html
+AttributesUpdates           | Table     | No       | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributeUpdates.html)
 ConditionalExpression       | String    | No       | A condition that must be satisfied in order for a conditional UpdateItem to succeed
 ExpressionAttributeNames    | Table     | No       | One or more substitution tokens for attribute names in an expression
 ExpressionAttributeValues   | Table     | No       | One or more values that can be substituted in an expression
@@ -737,9 +737,9 @@ where `res.body` includes the following json encoded parameters
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
-Attributes             | Table          | See : http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html
-ConsumedCapacity       | Table          | See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html
-ItemCollectionMetrics  | Table          | See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html
+Attributes             | Table          | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
+ConsumedCapacity       | Table          | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
+ItemCollectionMetrics  | Table          | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html)
 
 ### Example
 Follows from put item
@@ -775,7 +775,7 @@ db.updateItem(updateParams, function(res) {
 
 ### updateTable(params, cb)
 Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table. For more detail please see:
-http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html
+[AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html)
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -788,15 +788,15 @@ Parameter                   | Type             | Required | Description
 --------------------------- | -----------------| -------- | -----------
 TableName                   | String           | Yes      | The name of the table to be updated
 AttributeDefinitions        | Table            | No       | An Array of attributes that describe the key schema for the table and indexes
-GlobalSecondaryIndexUpdates | Array of tables  | No       | An array of one or more global secondary indexes for the table. See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html#API_UpdateTable_RequestSyntax
-ProvisionedThroughput       | Table            | No       | The new provisioned throughput settings for the specified table or index. See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html
-StreamSpecification         | Table            | No       | Represents the DynamoDB Streams configuration for the table. See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html
+GlobalSecondaryIndexUpdates | Array of tables  | No       | An array of one or more global secondary indexes for the table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html#API_UpdateTable_RequestSyntax)
+ProvisionedThroughput       | Table            | No       | The new provisioned throughput settings for the specified table or index. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html)
+StreamSpecification         | Table            | No       | Represents the DynamoDB Streams configuration for the table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html)
 
 where `res.body` includes the following json encoded parameters
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
-TableDescription       | Table          | Represents the properties of a table. See: http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html
+TableDescription       | Table          | Represents the properties of a table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
 
 ## Example
 
