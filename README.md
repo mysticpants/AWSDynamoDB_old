@@ -20,13 +20,13 @@ To add this library to your model, add the following lines to the top of your ag
 
 All parameters are strings. Access keys can be generated with IAM.
 
-Parameter              |  Type          | Description
+Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
 **region**             | string         | AWS region
 **accessKeyId**        | string         | AWS access key id
 **secretAccessKey**    | string         | AWS secret access key id
 
-### Example
+#### Example
 
 ```squirrel
 #require "AWSRequestV4.class.nut:1.0.2"
@@ -45,27 +45,29 @@ db <- AWSDynamoDB(AWS_DYNAMO_REGION, AWS_DYNAMO_ACCESS_KEY_ID, AWS_DYNAMO_SECRET
 The `batchGetItem` operation returns the attributes of one or more items from one or more tables. You identify requested items by primary key. For more detail please see:
 [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html)
 
- Parameter             | Type           | Description
+Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | Function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter              | Type              | Required | Description
 ---------------------  | ----------------- | -------- | -----------
 RequestItems           | Table             | Yes      | A map of one or more table names and, for each table, a list of operations to be performed (DeleteRequest or PutRequest)
 ReturnConsumedCapacity | String            | No       | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
 
-where `res.body` includes the following json encoded parameters
+#### Response
 
-Parameter              | Type                     | Description
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
+
+Key                    | Type                     | Description
 ---------------------- | ------------------------ | -----------
 ConsumedCapacity       | Array of tables          | The capacity units consumed by the entire BatchGetItem operation
 Responses              | Table                    | Each object in Responses consists of a table name, along with a map of attribute data consisting of the data type and attribute value.
 UnprocessedKeys        | Table                    | A map of tables and their respective keys that were not processed with the current response
 
-### Example
+#### Example
 Follows from db.batchWriteItem Example
 
 ```squirrel
@@ -101,7 +103,7 @@ The `batchWriteItem` operation puts or deletes multiple items in one or more tab
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter                   | Type                                  | Required | Description
 --------------------------- | ------------------------------------- | -------- | -----------
@@ -109,15 +111,17 @@ RequestItems                | Table                                 | Yes      |
 ReturnConsumedCapacity      | String                                | No       | Valid values: INDEXES, TOTAL, NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
 ReturnItemCollectionMetrics | String                                | No       | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
 
-where `res.body` includes the following json encoded parameters
+#### Response
 
-Parameter              | Type            | Description
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
+
+Key                    | Type            | Description
 ---------------------- | --------------- | -----------
 ConsumedCapacity       | Array of tables | The capacity units consumed by the entire BatchWriteItem operation
 ItemCollectionMetrics  | Array of tables | A list of tables that were processed by BatchWriteItem and, for each table, information about any item collections that were affected by individual DeleteItem or PutItem operations
 UnprocessedItems       | Array of tables | A map of tables and requests against those tables that were not processed. The UnprocessedItems value is in the same form as RequestItems, so you can provide this value directly to a subsequent BatchGetItem operation
 
-### Example
+#### Example
 
 ```squirrel
 // writing to an existing table called testTable2
@@ -177,7 +181,7 @@ The `createTable` operation adds a new table to your account. In an AWS account,
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | Function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter                   | Type             | Required | Description
 --------------------------- | -----------------| -------- | -----------
@@ -189,13 +193,15 @@ GlobalSecondaryIndexes      | Array of tables  | No       | See [AWS Docs](http:
 LocalSecondaryIndexes       | Array of tables  | No       | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_LocalSecondaryIndex.html)
 StreamSpecifiation          | Table            | No       | See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html)
 
-where `res.body` includes the following json encoded parameters
+#### Response
 
-Parameter               |       Type     | Description
-----------------------  | -------------- | -----------
-TableDescription        | Table          | Represents the properties of a table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
 
-### Example
+Key                    | Type           | Description
+---------------------- | -------------- | -----------
+TableDescription       | Table          | Represents the properties of a table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
+
+#### Example
 
 ```squirrel
 local randNum = (1.0 * math.rand() / RAND_MAX) * (1000 + 1);
@@ -248,7 +254,7 @@ Deletes a single item in a table by primary key. For more detail please see:
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter                   | Type      | Required | Description
 --------------------------- | ----------| -------- | -----------
@@ -261,15 +267,17 @@ ReturnConsumedCapacity      | String    | No       | Valid values: INDEXES, TOTA
 ReturnItemCollectionMetrics | String    | No       | Determines whether item collection metrics are returned. If set to SIZE, the response includes statistics about item collections. if set to NONE (default) no statistics are returned
 ReturnValues                | String    | No       | Use ALL_OLD if you want to get the item attributes as they appeared before they were deleted else NONE (default) where nothing is returned
 
-where `res.body` includes the following json encoded parameters
+#### Response
 
-Parameter              | Type           | Description
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
+
+Key                    | Type           | Description
 ---------------------- | -------------- | -----------
 Attributes             | Table          | The attribute values as they appeared before the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
 ConsumedCapacity       | Table          | The capacity units consumed by the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
 ItemCollectionMetrics  | Table          | Information about item collections, if any, that were affected by the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html)
 
-### Example
+#### Example
 
 ```squirrel
 local tableName = "Your Table Name";
@@ -309,13 +317,13 @@ Parameter              | Type           | Description
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | Function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter              | Type           | Required | Description
 ---------------------- | -------------- | -------- | -----------
 TableName              | String         | Yes      | The name of the table to delete
 
-where `res.body` can include the following json encoded parameters
+where `res.body` can include the following JSON encoded parameters
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
@@ -323,7 +331,7 @@ TableDescription       | Table          | Represents the properties of a table. 
 
 
 
-### Example
+#### Example
 
 ```squirrel
 local params = {
@@ -354,7 +362,7 @@ Returns the current provisioned-capacity limits for your AWS account in a region
 
 where `params` includes no content.
 
-where `res.body` can include the following json encoded parameters
+where `res.body` can include the following JSON encoded parameters
 
 Parameter                    | Type           | Description
 ---------------------------- | -------------- | -----------
@@ -363,7 +371,7 @@ AccountMaxWriteCapacityUnits | Long           | The maximum total write capacity
 TableMaxReadCapacityUnits    | Long           | The maximum read capacity units that your account allows you to provision for a new table that you are creating in this region, including the read capacity units provisioned for its global secondary indexes (GSIs)
 TableMaxWriteCapacityUnits   | Long           | The maximum write capacity units that your account allows you to provision for a new table that you are creating in this region, including the write capacity units provisioned for its global secondary indexes (GSIs)
 
-### Example
+#### Example
 
 ```squirrel
 
@@ -390,19 +398,21 @@ Parameter              | Type           | Description
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter             | Type            | Required | Description
 --------------------- | --------------- | -------- | -----------
 TableName             | String          | Yes      | The name of the table to describe
 
-where `res.body` includes the following json encoded parameters
+#### Response
 
-Parameter              | Type           | Description
----------------------- | -------------- | -----------
-Table                  | Table          | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
 
-### Example
+Key                   | Type           | Description
+--------------------- | -------------- | -----------
+Table                 | Table          | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
+
+#### Example
 
 ```squirrel
 
@@ -429,7 +439,7 @@ Parameter              | Type           | Description
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter                   | Type               | Required | Description
 --------------------------- | ------------------ | -------- | -----------
@@ -441,14 +451,14 @@ ExpressionAttributeNames    | Table              | No       | One or more substi
 ProjectionExpression        | String             | No       |  string that identifies one or more attributes to retrieve from the table. These attributes can include scalars, sets, or elements of a JSON document. The attributes in the expression must be separated by commas
 ReturnConsumedCapacity      | String             | No       | Valid values: INDEXES , TOTAL , NONE. INDEXES returns aggregate Consumed Capacity for the operation and ConsumedCapacity for each table and secondary index. TOTAL returns only aggregate ConsumedCapacity. NONE returns no ConsumedCapacity details.
 
-where `res.body` can include the following json encoded parameters
+where `res.body` can include the following JSON encoded parameters
 
 Parameter              | Type           | Description
 ---------------------- | -------------- | -----------
 ConsumedCapacity       | Table          | The capacity units consumed by the GetItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
 Item                   | Table          | A map of attribute names to AttributeValue objects. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
 
-### Example
+#### Example
 Follows from getItem
 ```squirrel
 local tableName  = "YOUR_TABLE_NAME";
@@ -485,21 +495,21 @@ Parameter              | Type           | Description
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter                   | Type      | Required | Description
 --------------------------- | --------- | -------- | -----------
 ExclusiveStartTableName     | String    | No       | The first table name that this operation will evaluate
 Limit                       | Integer   | No       | A maximum number of table names to return. If this parameter is not specified, the limit is 100
 
-where `res.body` can include the following json encoded parameters
+where `res.body` can include the following JSON encoded parameters
 
 Parameter              | Type              | Description
 ---------------------- | ----------------- | -----------
 LastEvaluatedTableName | String            | The name of the last table in the current page of results
 TableNames             | Array of strings  | The names of the tables associated with the current account at the current endpoint. The maximum size of this array is 100
 
-### Example
+#### Example
 
 ```squirrel
 local params = {
@@ -529,7 +539,7 @@ Parameter              | Type           | Description
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | Function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter                   | Type               | Required | Description
 --------------------------- | ------------------ | -------- | -----------
@@ -543,16 +553,18 @@ ReturnConsumedCapacity      | String             | No       | Valid values: INDE
 ReturnItemCollectionMetrics | String             | No       | Valid Values: SIZE, NONE. If set to SIZE, the response includes statistics about item collections. if set to NONE no statistics are returned
 ReturnValues                | String             | No       | Valid Values ALL_OLD, NONE. ALL_OLD - if PutItem overwrote an attribute name-value pair the content of the old item is returned. NONE - nothing is returned.
 
-where `res.body` includes the following json encoded parameters
+#### Response
 
-Parameter              | Type           | Description
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
+
+Key                    | Type           | Description
 ---------------------- | -------------- | -----------
 Attributes             | Table          | The attribute values as they appeared before the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
 ConsumedCapacity       | Table          | The capacity units consumed by the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
 ItemCollectionMetrics  | Table          | Information about item collections, if any, that were affected by the PutItem operation. See [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html)
 
 
-### Example
+#### Example
 
 ```squirrel
 local tableName = "YOUR_TABLE_NAME";
@@ -592,7 +604,7 @@ Parameter              | Type           | Description
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | Function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter                   | Type               | Required | Description
 --------------------------- | -------------------| -------- | -----------
@@ -612,18 +624,20 @@ ReturnConsumedCapacity      | String             | No       | Valid values: INDE
 ScanIndexForward            | Boolean            | No       | Specifies the order for index traversal: If true (default), the traversal is performed in ascending order; if false, the traversal is performed in descending order
 Select                      | String             | No       | The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index
 
-where `res.body` includes the following json encoded parameters
+#### Response
 
-Parameter               | Type            | Description
-----------------------  | --------------- | -----------
-ConsumedCapacity        | Table           | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
-Count                   | Integer         | The number of items in the response
-Items                   | Array of Tables | An array of item attributes that match the query criteria. Each element in this array consists of an attribute name and the value for that attribute
-LastEvaluatedKey        | Table           | The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request
-ScannedCount            | Integer         | The number of items evaluated, before any QueryFilter is applied. A high ScannedCount value with few, or no, Count results indicates an inefficient Query operation
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
+
+Key                    | Type            | Description
+---------------------- | --------------- | -----------
+ConsumedCapacity       | Table           | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
+Count                  | Integer         | The number of items in the response
+Items                  | Array of Tables | An array of item attributes that match the query criteria. Each element in this array consists of an attribute name and the value for that attribute
+LastEvaluatedKey       | Table           | The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request
+ScannedCount           | Integer         | The number of items evaluated, before any QueryFilter is applied. A high ScannedCount value with few, or no, Count results indicates an inefficient Query operation
 
 
-### Example
+#### Example
 
 ```squirrel
 local params = {
@@ -658,7 +672,7 @@ Parameter              | Type           | Description
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | Function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter                   | Type              | Required | Description
 --------------------------- | ------------------| -------- | -----------
@@ -678,9 +692,11 @@ Segment                     | Integer           | No       | For a parallel Scan
 Select                      | String            | No       | The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index
 TotalSegments               | Integer           | No       | For a parallel Scan request, TotalSegments represents the total number of segments into which the Scan operation will be divided
 
-where `res.body` includes the following json encoded parameters
+#### Response
 
-Parameter              | Type            | Description
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
+
+Key                    | Type            | Description
 ---------------------- | --------------- | -----------
 ConsumedCapacity       | Table           | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
 Count                  | Integer         | The number of items in the response
@@ -689,7 +705,7 @@ LastEvaluatedKey       | Table           | The primary key of the item where the
 ScannedCount           | Integer         | The number of items evaluated, before any QueryFilter is applied. A high ScannedCount value with few, or no, Count results indicates an inefficient Query operation
 
 
-### Example
+#### Example
 
 ```squirrel
 local params = {
@@ -720,7 +736,7 @@ Parameter              | Type           | Description
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | Function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter                   | Type      | Required | Description
 --------------------------- | ----------| -------- | -----------
@@ -736,15 +752,17 @@ ReturnValues                | String    | No       | Use ReturnValues if you wan
 UpdateExpression            | String    | No       | An expression that defines one or more attributes to be updated, the action to be performed on them, and new value(s) for them
 
 
-where `res.body` includes the following json encoded parameters
+#### Response
 
-Parameter              | Type           | Description
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
+
+Key                    | Type           | Description
 ---------------------- | -------------- | -----------
 Attributes             | Table          | See : [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)
 ConsumedCapacity       | Table          | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ConsumedCapacity.html)
 ItemCollectionMetrics  | Table          | See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ItemCollectionMetrics.html)
 
-### Example
+#### Example
 Follows from put item
 ```squirrel
 local updateParams = {
@@ -785,7 +803,7 @@ Parameter              | Type           | Description
 **params**             | Table          | Table of parameters (See API Reference)
 **cb**                 | Function       | Callback function that takes one parameter (a response table)
 
-where `params` includes
+where `params` includes:
 
 Parameter                   | Type             | Required | Description
 --------------------------- | -----------------| -------- | -----------
@@ -795,13 +813,15 @@ GlobalSecondaryIndexUpdates | Array of tables  | No       | An array of one or m
 ProvisionedThroughput       | Table            | No       | The new provisioned throughput settings for the specified table or index. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html)
 StreamSpecification         | Table            | No       | Represents the DynamoDB Streams configuration for the table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html)
 
-where `res.body` includes the following json encoded parameters
+#### Response
 
-Parameter              | Type           | Description
+The response table contains a key `body` which is a table that includes the following JSON encoded keys:
+
+Key                    | Type           | Description
 ---------------------- | -------------- | -----------
 TableDescription       | Table          | Represents the properties of a table. See: [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TableDescription.html)
 
-## Example
+#### Example
 
 ```squirrel
 
