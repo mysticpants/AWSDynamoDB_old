@@ -1,5 +1,10 @@
 # AWSDynamoDB
 
+The helper library to invoke [AWS DynamoDB](https://aws.amazon.com/documentation/dynamodb/) functions from agent code.
+
+This class can be used to manage DynamoDB tables and perform actions such as
+creating, reading, updating and deleting data and tables.
+
 To add this library to your model, add the following lines to the top of your agent code:
 
 ```
@@ -8,8 +13,6 @@ To add this library to your model, add the following lines to the top of your ag
 ```
 
 **Note: [AWSRequestV4](https://github.com/electricimp/AWSRequestV4/) must be loaded.**
-
-This class can be used to perform actions on a DynamoDB table.
 
 ## Class Methods
 
