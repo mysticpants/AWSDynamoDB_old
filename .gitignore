@@ -1,6 +1,6 @@
 .DS_Store
-*.wrench
-*.out
+**/*.wrench
+**/*.out
 .build_api_key.json
-*.swp
+**/*.swp
 src/vars.nut
